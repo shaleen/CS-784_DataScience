@@ -7,13 +7,16 @@ class Parser :
     def getAttributesFromHTMLPage(self,html,url):
         dict = {}
         soup = BeautifulSoup(html, 'html.parser')
-        for div in soup.findAll('div', attrs={'class':'indisplay'}):
-            #print div.parent.parent.attrs
-            self.processTopLevelName(div, dict)
-            #print div.text
-            self.processDetails(soup.findAll('div', attrs={'class':'usedwbox'}),dict)
-        self.processLocation(soup.findAll('div', attrs={'class':'dateused'}), dict)
-        self.processPrice(soup.findAll('div', attrs={'class':'usedprice1'}), dict)
+        try:
+            for div in soup.findAll('div', attrs={'class':'indisplay'}):
+                #print div.parent.parent.attrs
+                self.processTopLevelName(div, dict)
+                #print div.text
+                self.processDetails(soup.findAll('div', attrs={'class':'usedwbox'}),dict)
+            self.processLocation(soup.findAll('div', attrs={'class':'dateused'}), dict)
+            self.processPrice(soup.findAll('div', attrs={'class':'usedprice1'}), dict)
+        except:
+            print "error for url", url
         return dict
 
     def processLocation(self, list, dict):

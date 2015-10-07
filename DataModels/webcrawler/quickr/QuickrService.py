@@ -12,6 +12,16 @@ class QuickrService:
 
     def readEvalLoop(self):
         self.crawler.generateAllUrls()
-        #while not self.crawler.isURLListEmpty:
-        self._list.append(self.parser.getAttributesFromHTMLPage(self.crawler.crawlforhtml(), "test"))
+        while not self.crawler.isURLListEmpty:
+            page = self.crawler.crawlforhtml()
+            self.crawler.writeToFile(page)
+            self._list.append(self.parser.getAttributesFromHTMLPage(page, self.crawler.getCurrentUrl()))
         return self._list
+
+    def readEvalLoopSingle(self):
+        self.crawler.generateAllUrls()
+        page = self.crawler.crawlforhtml()
+        self.crawler.writeToFile(page)
+        list = []
+        list.append(self.parser.getAttributesFromHTMLPage(page, self.crawler.getCurrentUrl()))
+        return list

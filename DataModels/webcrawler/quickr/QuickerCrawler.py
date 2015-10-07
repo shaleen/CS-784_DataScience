@@ -1,26 +1,41 @@
+from DataModels.webcrawler.quickr import ReaderHelper
+from DataModels.webcrawler.quickr.ReaderHelper import Helper
+
 __author__ = 'shaleen'
 import urlparse
 import mechanize
+import os.path
 from DataModels.webcrawler.Crawler import Crawler
 from DataModels.webcrawler.Crawler import CONST
+from DataModels.webcrawler.quickr.ReaderHelper import Helper
 
 
 class QuikrCrawler (Crawler):
 
     setOfUrls = set()
+    currentUrl = ''
 
     def __init__(self):
         self.urlList = [CONST.QUIKRSEED()]
+        self.helper = Helper()
 
-    #crawl for urls actually
+    def getCurrentUrl(self):
+        return self.currentUrl
+
+    def writeToFile(self, page):
+        url_file = open(self.helper.getHtmlFileHandle(self.getCurrentUrl().replace("/","@")), 'w+')
+        url_file.write(page)
+        return
+
     def crawlforhtml(self):
         try:
             browser = mechanize.Browser()
             url = self.getNextUrl()
+            self.currentUrl = url
             print url
         except:
             print "Error in generating HTML for url", url
-        return browser.open(url).read()
+        return browser.open(self.currentUrl).read()
 
     def generateAllUrls(self):
         browser = mechanize.Browser()

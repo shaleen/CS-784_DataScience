@@ -41,11 +41,6 @@ class QuickrDaoImpl (Connector):
         print cur.fetchall()
 
 service = QuickrService.QuickrService()
-list =  service.readEvalLoop()
+list =  service.readEvalLoopSingle()
 print list
-
-# list = {}
-# list['id'] = 3
-# list['test'] = 'wow'
-
 print QuickrDaoImpl().populateAndExecute(list[0])

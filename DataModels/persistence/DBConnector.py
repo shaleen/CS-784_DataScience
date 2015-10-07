@@ -11,12 +11,6 @@ class Connector:
     QUICKRLOCAL = 'localhost'
     QUICKRTABLE = 'Quickr'
 
-    QUICKRDB = 'test'
-    QUICKRROOT = 'root'
-    QUICKRPASS = 'help2012'
-    QUICKRLOCAL = 'localhost'
-    QUICKRTABLE = 'new_table'
-
 
     def generateDBConnector(self, root):
         if root == 'QUICKR':
